@@ -1,0 +1,83 @@
+---
+title: Troubleshooting
+title: Troubleshooting
+description: Solutions to common issues and technical support for Axrisi
+---
+
+## Common Issues
+
+Most problems with Axrisi can be resolved with simple troubleshooting steps.
+
+<Expandable title="Extension Not Appearing" default-open="false">
+  Ensure the extension is enabled in your browser settings and pinned to the toolbar.
+</Expandable>
+
+<Expandable title="Transformations Failing" default-open="false">
+  Check your internet connection and verify you're not exceeding free plan limits.
+</Expandable>
+
+<Expandable title="Slow Performance" default-open="false">
+  Clear your browser cache and ensure you have sufficient RAM available.
+</Expandable>
+
+## Browser-Specific Issues
+
+<Tabs>
+  <Tab title="Chrome" icon="chrome">
+    Check extensions page and ensure Axrisi has necessary permissions.
+  </Tab>
+  <Tab title="Firefox" icon="firefox">
+    Verify the add-on is not disabled in private browsing mode.
+  </Tab>
+  <Tab title="Edge" icon="edge">
+    Update to the latest version for compatibility.
+  </Tab>
+</Tabs>
+
+## Account Issues
+
+<Steps>
+  <Step title="Login Problems" icon="user">
+    Clear browser cookies and try logging in again.
+  </Step>
+  <Step title="Billing Errors" icon="credit-card">
+    Contact support with your subscription details.
+  </Step>
+  <Step title="Plan Upgrades" icon="arrow-up">
+    Visit the dashboard to manage your subscription.
+  </Step>
+</Steps>
+
+## Advanced Troubleshooting
+
+<Callout kind="alert">For technical issues, try reinstalling the extension.</Callout>
+
+<CodeGroup tabs="Reset Extension,Check Console">
+  ```javascript
+// Reset extension settings
+chrome.management.setEnabled('extensionId', false);
+chrome.management.setEnabled('extensionId', true);
+  ```
+  ```javascript
+// Open browser console
+// Look for Axrisi-related errors
+console.log('Checking for errors...');
+  ```
+</CodeGroup>
+
+## Getting Help
+
+If you can't resolve an issue, reach out to our support team.
+
+<Columns cols={2}>
+  <Card title="Email Support" icon="mail" href="mailto:support@axrisi.com">
+    Send detailed issue description.
+  </Card>
+  <Card title="Community Forum" icon="users" href="https://forum.axrisi.com">
+    Get help from other users.
+  </Card>
+</Columns>
+
+## Prevention Tips
+
+Regularly update your browser and extension to avoid compatibility issues. Monitor your usage to stay within plan limits.

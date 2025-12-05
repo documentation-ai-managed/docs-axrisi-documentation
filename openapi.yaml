@@ -1,0 +1,195 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: Axrisi API
+  license:
+    name: MIT
+servers:
+  - url: https://api.axrisi.com/v1
+paths:
+  /users:
+    get:
+      summary: List all users
+      operationId: listUsers
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: An paged array of users
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a user account
+      operationId: createUsers
+      responses:
+        201:
+          description: User account created successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/{userId}:
+    get:
+      summary: Info for a specific user
+      operationId: showUserById
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The id of the user to retrieve
+          schema:
+            type: string
+      responses:
+        200:
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /extensions:
+    get:
+      summary: List all extension versions
+      operationId: listExtensions
+      responses:
+        200:
+          description: An array of available extension versions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extensions'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Upload a new extension version
+      operationId: createExtensions
+      responses:
+        201:
+          description: Extension version uploaded successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /summaries:
+    get:
+      summary: Retrieve text summaries
+      operationId: listSummaries
+      responses:
+        200:
+          description: An array of processed text summaries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Summaries'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new text summary
+      operationId: createSummaries
+      responses:
+        201:
+          description: Text summary created successfully
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    User:
+      required:
+        - id
+        - email
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string
+        plan:
+          type: string
+    Users:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+    Extension:
+      required:
+        - id
+        - version
+      properties:
+        id:
+          type: integer
+          format: int64
+        version:
+          type: string
+        features:
+          type: array
+          items:
+            type: string
+    Extensions:
+      type: array
+      items:
+        $ref: '#/components/schemas/Extension'
+    Summary:
+      required:
+        - id
+        - originalText
+      properties:
+        id:
+          type: integer
+          format: int64
+        originalText:
+          type: string
+        summarizedText:
+          type: string
+    Summaries:
+      type: array
+      items:
+        $ref: '#/components/schemas/Summary'
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
